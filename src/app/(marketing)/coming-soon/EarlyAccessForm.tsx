@@ -46,7 +46,10 @@ export function EarlyAccessForm() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="flex flex-col gap-2 sm:flex-row">
+      <form
+        onSubmit={onSubmit}
+        className="flex w-full flex-col gap-2.5 text-left sm:flex-row"
+      >
         <input
           type="email"
           required
@@ -58,9 +61,14 @@ export function EarlyAccessForm() {
           placeholder="you@company.com"
           aria-label="Email address"
           aria-invalid={state === "error"}
-          className="h-11 flex-1 rounded-md border border-white/15 bg-white/[0.05] px-4 text-sm text-white outline-none placeholder:text-white/35 focus-visible:border-[var(--color-primary-300)] focus-visible:ring-[3px] focus-visible:ring-[var(--color-primary-300)]/30"
+          className="h-11 w-full min-w-0 rounded-md border border-white/15 bg-white/[0.05] px-4 text-sm text-white outline-none placeholder:text-white/35 focus-visible:border-[var(--color-primary-300)] focus-visible:ring-[3px] focus-visible:ring-[var(--color-primary-300)]/30 sm:flex-1"
         />
-        <Button type="submit" size="lg" disabled={state === "loading"}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={state === "loading"}
+          className="w-full shrink-0 sm:w-auto"
+        >
           {state === "loading" ? "Submitting…" : "Get early access"}
           {state !== "loading" && <ArrowRight size={15} className="ml-1" />}
         </Button>

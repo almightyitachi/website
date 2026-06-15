@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import { ParticleField } from "@/components/ui/particle-effect-for-hero"
 
 import { EarlyAccessForm } from "./EarlyAccessForm"
@@ -52,17 +53,21 @@ export function ComingSoon({ title }: { title: string }) {
           <EarlyAccessForm />
         </div>
 
-        {/* Back to home */}
-        <Link
-          href="/"
-          className="group mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-white/55 transition-colors hover:text-white"
+        {/* Back to home — secondary action (outline on the dark band) */}
+        <Button
+          asChild
+          variant="outline"
+          size="lg"
+          className="group mt-8 border-white/20 bg-transparent text-white hover:border-white/30 hover:bg-white/10 hover:text-white"
         >
-          <ArrowLeft
-            size={15}
-            className="transition-transform duration-200 group-hover:-translate-x-0.5"
-          />
-          Back to home
-        </Link>
+          <Link href="/">
+            <ArrowLeft
+              size={15}
+              className="transition-transform duration-200 group-hover:-translate-x-0.5"
+            />
+            Back to home
+          </Link>
+        </Button>
       </div>
     </div>
   )
