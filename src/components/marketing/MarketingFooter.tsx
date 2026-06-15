@@ -9,11 +9,14 @@ import { DottedWordmark } from "./DottedWordmark"
 // brand mark here (the centred logo is hidden for now); everything else is
 // quiet, white-on-near-black.
 
+// Mirror the top nav exactly — same labels, same in-page section targets
+// (NAV_LINKS in MarketingNav). `/#<id>` works from any route: on `/` it jumps
+// to the section, elsewhere it navigates home and lands on the anchor.
 const PRIMARY_LINKS: { label: string; href: string }[] = [
-  { label: "Hire", href: "/hire" },
-  { label: "Place", href: "/place" },
-  { label: "Train", href: "/train" },
-  { label: "Case studies", href: "/case-studies/infosys" },
+  { label: "Hire", href: "/#v3-altitudes" },
+  { label: "Why Us", href: "/#v6-ecosystem-layers" },
+  { label: "Platform", href: "/#capabilities" },
+  { label: "Case Studies", href: "/#case-studies" },
 ]
 
 const COMPANY_LINKS: { label: string; href: string }[] = [
