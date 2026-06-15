@@ -3,63 +3,67 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { MarketingFooter } from "@/components/marketing/MarketingFooter"
-import { MarketingNav } from "@/components/marketing/MarketingNav"
+import { ParticleField } from "@/components/ui/particle-effect-for-hero"
 
 import { EarlyAccessForm } from "./EarlyAccessForm"
 
-// Shared "Coming soon" surface for every route that isn't the landing page.
-// Rendered with full site chrome (nav + footer) so the page reads as part of
-// the site, not a dead end. `title` is the friendly name of the requested
-// page (e.g. "The Team"), shown as the eyebrow. The same border-softening and
-// page background as the landing keep the surface consistent.
+/**
+ * Shared "Coming soon" surface for every route that isn't the landing page.
+ * Same design as the global 404 (`src/app/not-found.tsx`) — the dark brand
+ * band, the interactive ParticleField, and the gradient + serif hook-word
+ * headline — only the content changes. `title` (the requested page, e.g.
+ * "The Team") shows as the eyebrow so visitors know which page is on its way.
+ */
 export function ComingSoon({ title }: { title: string }) {
   return (
     <div
-      className="flex min-h-screen flex-col bg-[var(--bg-page)] font-sans"
-      style={{ "--border-default": "rgba(226,226,231,0.6)" } as React.CSSProperties}
+      data-surface="website"
+      className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[var(--bg-brand)] px-6 py-20 text-center"
     >
-      <MarketingNav
-        onScheduleClick={() => {
-          window.location.href = "/#book"
-        }}
-      />
+      {/* Interactive particle background (decorative, pointer-reactive) */}
+      <ParticleField className="z-0" />
 
-      <main className="flex flex-1 items-center justify-center px-6 py-28 lg:px-12 lg:py-36">
-        <div className="mx-auto w-full max-w-xl text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">
-            {title}
-          </p>
+      <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center">
+        {/* Eyebrow — the page that's on its way */}
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-white/45">
+          {title}
+        </p>
 
-          <h1 className="mt-5 text-[clamp(40px,7vw,72px)] font-semibold leading-[1.04] tracking-[-0.03em] text-[var(--text-primary)]">
-            Coming{" "}
-            <span className="font-serif font-normal italic tracking-[-0.04em] text-[var(--color-primary-600)]">
-              soon
-            </span>
-          </h1>
+        {/* Display headline — inverse gradient + one cobalt serif hook word,
+            the same device as the 404 and the hero */}
+        <h1 className="mt-5 max-w-[16ch] text-[clamp(48px,9vw,116px)] font-bold leading-[1.0] tracking-[-0.04em]">
+          <span className="bg-gradient-to-b from-white to-white/45 bg-clip-text text-transparent">
+            Coming
+          </span>{" "}
+          <span className="font-serif font-normal italic tracking-[-0.04em] text-[var(--color-primary-300)]">
+            soon
+          </span>
+        </h1>
 
-          <p className="mx-auto mt-5 max-w-md text-[15px] leading-[1.6] text-[var(--text-muted)]">
-            This page is on its way. We&rsquo;re putting the finishing touches on
-            it — in the meantime, the full story lives on the home page.
-          </p>
+        {/* Description */}
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-white/60 md:text-lg">
+          This page is on its way. We&apos;re putting the finishing touches on
+          it — leave your email and we&apos;ll let you know the moment it goes
+          live.
+        </p>
 
-          <div className="mt-8 flex justify-center">
-            <Button asChild>
-              <Link href="/">
-                <ArrowLeft size={16} className="mr-1" />
-                Back to home
-              </Link>
-            </Button>
-          </div>
-
-          <div className="mx-auto mt-12 max-w-md border-t border-[var(--border-default)] pt-8">
-            <EarlyAccessForm />
-          </div>
+        {/* Early-access capture */}
+        <div className="mt-9 w-full max-w-md">
+          <EarlyAccessForm />
         </div>
-      </main>
 
-      <MarketingFooter />
+        {/* Back to home */}
+        <Link
+          href="/"
+          className="group mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-white/55 transition-colors hover:text-white"
+        >
+          <ArrowLeft
+            size={15}
+            className="transition-transform duration-200 group-hover:-translate-x-0.5"
+          />
+          Back to home
+        </Link>
+      </div>
     </div>
   )
 }
