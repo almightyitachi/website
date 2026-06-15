@@ -24,7 +24,10 @@ export function ComingSoon({ title }: { title: string }) {
       {/* Interactive particle background (decorative, pointer-reactive) */}
       <ParticleField className="z-0" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center">
+      {/* pointer-events-none lets taps/drags over the copy fall through to the
+          particle canvas (so the whole page reacts like the desktop hover);
+          the field, button, and link re-enable pointer events below. */}
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center">
         {/* Eyebrow — the page that's on its way */}
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-white/45">
           {title}
@@ -49,7 +52,7 @@ export function ComingSoon({ title }: { title: string }) {
         </p>
 
         {/* Early-access capture */}
-        <div className="mt-9 w-full max-w-md">
+        <div className="pointer-events-auto mt-9 w-full max-w-md">
           <EarlyAccessForm />
         </div>
 
@@ -58,7 +61,7 @@ export function ComingSoon({ title }: { title: string }) {
           asChild
           variant="outline"
           size="lg"
-          className="group mt-8 border-white/20 bg-transparent text-white hover:border-white/30 hover:bg-white/10 hover:text-white"
+          className="group pointer-events-auto mt-8 border-white/20 bg-transparent text-white hover:border-white/30 hover:bg-white/10 hover:text-white"
         >
           <Link href="/">
             <ArrowLeft

@@ -42,8 +42,8 @@ interface CaseStudy {
   eyebrow: string
   wordmark: string
   logoDomain: string
-  /** Stand-in logo image (Unsplash stock for now); replaces the letter
-   *  fallback until real brand assets land in /public/logos. */
+  /** Brand logo image (served from /public/corporate-marquee); falls back to
+   *  the letter chip when absent. */
   logoSrc?: string
   quote: string
   description: string
@@ -250,12 +250,12 @@ export function CaseStudiesShowcase({
             toward it; framed band with detached corner crosses. ── */}
         <div className="relative mt-12 border-y border-[var(--border-default)]">
           <CornerPlus />
-          <div className="flex items-center gap-6 px-8 py-7 lg:gap-10 lg:px-12">
-            <p className="w-[116px] shrink-0 text-[12.5px] font-medium leading-[1.35] text-[var(--text-muted)] sm:w-[150px] lg:w-[190px]">
+          <div className="flex flex-col gap-4 px-8 py-7 sm:flex-row sm:items-center sm:gap-6 lg:gap-10 lg:px-12">
+            <p className="shrink-0 text-[12.5px] font-medium leading-[1.35] text-[var(--text-muted)] sm:w-[150px] lg:w-[190px]">
               Trusted by recruiters at
             </p>
             <div
-              className="relative min-w-0 flex-1 overflow-x-clip overflow-y-visible"
+              className="relative w-full min-w-0 overflow-x-clip overflow-y-visible sm:flex-1"
               style={{
                 maskImage:
                   "linear-gradient(to right, transparent 0%, black 9%, black 96%, transparent 100%)",
@@ -297,7 +297,6 @@ export function CaseStudiesShowcase({
           <div className="flex flex-col lg:col-span-7 lg:pr-14">
             <div className="flex items-center gap-3">
               <CompanyLogo
-                domain={FEATURED.logoDomain}
                 wordmark={FEATURED.wordmark}
                 src={FEATURED.logoSrc}
                 size={32}
@@ -401,7 +400,6 @@ export function CaseStudiesShowcase({
                     </p>
                   </div>
                   <CompanyLogo
-                    domain={cs.logoDomain}
                     wordmark={cs.wordmark}
                     src={cs.logoSrc}
                     size={36}
@@ -526,7 +524,7 @@ function DomainTag({
 
 function MarqueeLogo({ logo, darkMode = false }: { logo: TrustLogo; darkMode?: boolean }) {
   const [errored, setErrored] = useState(false)
-  const imgSrc = logo.src ?? (logo.domain ? `https://logo.clearbit.com/${logo.domain}` : null)
+  const imgSrc = logo.src ?? null
 
   // Logos render at their native colours with no hover state — a quiet,
   // self-running trust band.
@@ -557,15 +555,12 @@ function MarqueeLogo({ logo, darkMode = false }: { logo: TrustLogo; darkMode?: b
 // ─── Company logo with letter fallback ───────────────────────────────────────
 
 function CompanyLogo({
-  domain,
   wordmark,
   src,
   size = 32,
 }: {
-  domain: string
   wordmark: string
-  /** Explicit logo image (stock stand-in for now). Falls back to the
-   *  clearbit favicon, then the letter chip, when absent or failing. */
+  /** Brand logo image. Falls back to the letter chip when absent or failing. */
   src?: string
   size?: number
 }) {
@@ -576,7 +571,8 @@ function CompanyLogo({
   const textClass =
     size <= 24 ? "text-[10px]" : size <= 28 ? "text-[11px]" : size <= 32 ? "text-xs" : "text-sm"
 
-  if (errored) {
+  // No image (or it failed to load) → a brand-tinted letter chip.
+  if (errored || !src) {
     return (
       <div
         className={cn(
@@ -593,27 +589,6 @@ function CompanyLogo({
   // Brand logo: a uniform 1:1 (square) white chip on every card, so the marks
   // sit on a consistent grid. Logos are contained, never cropped — a wide mark
   // simply centres as a band within the square.
-  if (src) {
-    return (
-      <div
-        className={cn(
-          sizeClass,
-          "flex shrink-0 items-center justify-center overflow-hidden rounded-sm border border-[var(--border-default)] bg-white p-1",
-        )}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt={wordmark}
-          width={size}
-          height={size}
-          className="h-full w-full object-contain"
-          onError={() => setErrored(true)}
-        />
-      </div>
-    )
-  }
-
   return (
     <div
       className={cn(
@@ -623,7 +598,7 @@ function CompanyLogo({
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`https://logo.clearbit.com/${domain}`}
+        src={src}
         alt={wordmark}
         width={size}
         height={size}

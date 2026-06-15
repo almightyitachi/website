@@ -14,8 +14,8 @@ import {
 
 import { cn } from "@/lib/utils"
 
-// 3D tilt card primitives — port of the upstream `3d-card-effect`
-// pattern. CardContainer establishes the perspective context and tracks
+// 3D tilt card primitives. CardContainer establishes the perspective context
+// and tracks
 // the hovered state via context. CardItem reads that state and applies
 // per-element translateZ / rotate values so individual layers lift away
 // from the card surface on hover.

@@ -76,7 +76,7 @@ export function EveryStageOfHire({
       // texture and card borders carry the visual interest.
       className="relative z-10 overflow-hidden border-t border-[var(--border-default)] bg-[var(--bg-page)]"
     >
-      {/* Faint cobalt grid texture from the Figma reference. Anchored to
+      {/* Faint cobalt grid texture. Anchored to
           the top centre at its native 1440px width so the diagonal hatch
           motifs land at the outer edges; crops symmetrically on narrower
           viewports. Masked to fade into the surface near the bottom. */}

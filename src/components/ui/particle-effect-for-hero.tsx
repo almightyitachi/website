@@ -374,6 +374,24 @@ export function ParticleField({ className }: { className?: string }) {
     mouseRef.current = { ...mouseRef.current, isActive: false }
   }
 
+  // Touch mirrors the pointer: a tap or drag scatters the particles the same
+  // way hover does on desktop. Lifting the finger releases them home.
+  const handleTouch = (e: React.TouchEvent) => {
+    const container = containerRef.current
+    if (!container || e.touches.length === 0) return
+    const rect = container.getBoundingClientRect()
+    const t = e.touches[0]
+    mouseRef.current = {
+      x: t.clientX - rect.left,
+      y: t.clientY - rect.top,
+      isActive: true,
+    }
+  }
+
+  const handleTouchEnd = () => {
+    mouseRef.current = { ...mouseRef.current, isActive: false }
+  }
+
   return (
     <div
       ref={containerRef}
@@ -384,6 +402,10 @@ export function ParticleField({ className }: { className?: string }) {
       )}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouch}
+      onTouchMove={handleTouch}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
     >
       <canvas ref={canvasRef} className="block size-full" />
     </div>

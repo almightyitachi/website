@@ -17,8 +17,8 @@ import { cn } from "@/lib/utils"
 
 import { ScaledGraphic } from "./ScaledGraphic"
 
-// The Intelligence layer graphic — a hub-and-spoke "AI core" composition
-// modelled on the reference: a glowing orb at the centre with long circuit
+// The Intelligence layer graphic — a hub-and-spoke "AI core" composition:
+// a glowing orb at the centre with long circuit
 // traces running out to six satellites (three per side, staggered heights),
 // lens-flare streaks where the traces meet the orb, and a dotted field
 // behind. Energy pulses travel core → node on a phase-locked loop, so the
@@ -130,7 +130,7 @@ const SAT_DOTS = [
 ]
 
 // Lens-flare streak — a bright horizontal light line with a soft halo, sitting
-// where the traces meet the orb (one per side, like the reference render).
+// where the traces meet the orb (one per side).
 function FlareStreak({
   side,
   reduce,
@@ -334,7 +334,7 @@ function IntelligenceHub({ tone }: { tone: Tone }) {
             >
               {/* Satellite flashes as the pulse arrives — same period as the
                   pulse loop (duration + repeatDelay = PERIOD) so they stay
-                  locked. Circular per the reference; decorative, not a control. */}
+                  locked. Circular; decorative, not a control. */}
               <span
                 className={cn(
                   "relative flex size-14 items-center justify-center rounded-lg border",

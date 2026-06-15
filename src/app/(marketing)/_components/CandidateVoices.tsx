@@ -137,12 +137,12 @@ export function CandidateVoices() {
             (mirrors the corporate case-study marquee). */}
         <div className="relative -mx-8 mb-10 border-y border-[var(--border-default)] lg:-mx-12">
           <CornerPlus />
-          <div className="flex items-center gap-6 px-8 py-7 lg:gap-10 lg:px-12">
-            <p className="w-[116px] shrink-0 text-[12.5px] font-medium leading-[1.35] text-[var(--text-muted)] sm:w-[150px] lg:w-[190px]">
+          <div className="flex flex-col gap-4 px-8 py-7 sm:flex-row sm:items-center sm:gap-6 lg:gap-10 lg:px-12">
+            <p className="shrink-0 text-[12.5px] font-medium leading-[1.35] text-[var(--text-muted)] sm:w-[150px] lg:w-[190px]">
               Trusted by placement teams at
             </p>
             <div
-              className="relative min-w-0 flex-1 overflow-x-clip overflow-y-visible"
+              className="relative w-full min-w-0 overflow-x-clip overflow-y-visible sm:flex-1"
               style={{
                 maskImage:
                   "linear-gradient(to right, transparent 0%, black 9%, black 96%, transparent 100%)",

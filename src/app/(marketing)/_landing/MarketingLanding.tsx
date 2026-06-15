@@ -38,9 +38,7 @@ import { Button } from "@/components/ui/button"
 import { GridPattern } from "@/components/ui/grid-pattern"
 import { cn } from "@/lib/utils"
 
-import { type HeroVariant } from "../_components/AnimatedHeroV3"
 import { CandidateVoices } from "../_components/CandidateVoices"
-import { CaseStudies } from "../_components/CaseStudies"
 import { CaseStudiesShowcase } from "../_components-v6/CaseStudiesShowcase"
 import { DataSecuritySection } from "../_components-v6/DataSecuritySection"
 import { EditorialPullQuote } from "../_components-v6/EditorialPullQuote"
@@ -174,12 +172,12 @@ export function MarketingLanding({
 
 // ─── 1 · Hero — centred editorial stack with a 3-way theme toggle ─────
 
-// V3 extends the upstream HeroVariant ("light" | "dark") with an "image"
-// option that swaps the editorial centred layout for a left-anchored
-// composition with a watercolor mountain SVG on the right (Sakata-style
-// reference). The variant reads as a *light* surface for downstream
-// chrome (Section 5 theming) because the mountain sits on white.
-export type LandingHeroVariant = HeroVariant | "image" | "gradient"
+// Hero surface options. "light"/"dark" are the editorial centred layouts;
+// "image" swaps to a left-anchored composition with a watercolour mountain SVG
+// on the right and reads as a *light* surface for downstream chrome (Section 5
+// theming) because the mountain sits on white; "gradient" is the production
+// hero. Production renders "gradient".
+export type LandingHeroVariant = "light" | "dark" | "image" | "gradient"
 
 interface LandingHeroProps {
   variant: LandingHeroVariant
@@ -213,7 +211,7 @@ function V2HeroSection({
   showVariantToggle?: boolean
 }) {
   // Image variant gets a fundamentally different layout (full-bleed
-  // stock photo, giant cycling word at top, headline + tagline pinned
+  // background, giant cycling word at top, headline + tagline pinned
   // bottom-left, proof card pinned bottom-right), so we branch out
   // rather than threading isImage through every node below.
   if (variant === "image") {
@@ -459,16 +457,15 @@ function V2EditorialHero({
   )
 }
 
-// Image-variant hero — full-bleed stock photo with two anchored zones
-// on the left edge: an editorial "Hire at every / ALTITUDE." block
-// at the top, and an elaborated description + CTAs at the base. A glass
-// proof card pins the bottom-right.
+// Image-variant hero — full-bleed background with two anchored zones on the
+// left edge: an editorial "Hire at every / ALTITUDE." block at the top, and an
+// elaborated description + CTAs at the base. A glass proof card pins the
+// bottom-right. Not used in production (which renders the gradient hero); the
+// media sources are wired to local assets.
 
-const V3_HERO_PHOTO_URL =
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2400&q=80"
+const V3_HERO_PHOTO_URL = "/images/india-talent-map.svg"
 
-const V3_HERO_VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
+const V3_HERO_VIDEO_URL = ""
 
 const V3_HERO_PROOF_AVATARS: Array<{ initials: string; tint: string }> = [
   { initials: "SR", tint: "bg-[var(--color-primary-600)]" },
@@ -1142,8 +1139,7 @@ function V2ImageHero({ onScheduleClick }: { onScheduleClick?: () => void }) {
 // reader knows the platform spans the full ladder (campus fresher up to
 // founder-led executive search) before they meet the bridge diagram.
 
-// Section 2 — 4-column tier row, modelled on the Duna platform-tour
-// reference (adapted to 4 columns instead of 3). A left-aligned intro
+// Section 2 — 4-column tier row: a left-aligned intro
 // stack sits above a horizontal divider, followed by four equal-width
 // columns separated by vertical dividers on lg+. Each column carries
 // one outline icon, a tier title, and a 1–2 sentence description.

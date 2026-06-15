@@ -459,10 +459,10 @@ function FloatBadge({
   )
 }
 
-// Real candidate / student portrait — circular, framed by a thin accent ring so
-// the face reads as a profile chip rather than a bare photo. Decorative
+// Candidate / student portrait — circular, framed by a thin accent ring so the
+// face reads as a profile chip rather than a bare photo. Decorative
 // (aria-hidden); the names live in the card text, not in the image. Served from
-// public/people (curated Unsplash portraits, free licence).
+// local assets in public/people.
 function PhotoAvatar({
   src,
   size,

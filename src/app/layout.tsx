@@ -104,8 +104,6 @@ export default function RootLayout({
           href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@300,400,500,600,700,900&display=swap"
         />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
-        {/* Figma MCP capture — temporary script for design-to-Figma sync */}
-        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
       </head>
       <body className="font-sans antialiased bg-[var(--bg-page)] text-[var(--text-primary)]">
         {children}
