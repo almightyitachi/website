@@ -3,17 +3,14 @@
 import { motion } from "framer-motion"
 
 // Section 6A — Corporate. An auto-scrolling, tilted card carousel of recruiter
-// logos on the dark brand band. Each square card carries the same cobalt orb
-// gradient as the Intelligence graphic (Section 4); cards sit at slight,
-// balanced angles for a playful rhythm and straighten + lift on hover. The
-// scroll is a CSS ticker (linear, off the main thread, pauses on hover, halts
-// under reduced motion).
+// logos on the dark brand band. Each square card uses the same dark glass
+// surface as the small satellite tiles in the Intelligence graphic (Section 4)
+// — translucent white fill, hairline border, an inset top highlight and a
+// subtle blur. Cards sit at slight, balanced angles for a playful rhythm and
+// straighten + lift on hover. The scroll is a CSS ticker (linear, off the main
+// thread, pauses on hover, halts under reduced motion).
 
 const EASE = [0.16, 1, 0.3, 1] as const
-
-// Card surface — the Intelligence graphic's cobalt orb gradient.
-const CARD_BG =
-  "radial-gradient(120% 120% at 32% 24%, var(--color-primary-400) 0%, var(--color-primary-600) 52%, var(--color-primary-900) 100%)"
 
 interface Logo {
   name: string
@@ -96,13 +93,8 @@ export function CorporateLogoCarousel() {
               <div
                 key={`${logo.name}-${i}`}
                 aria-hidden={isClone}
-                style={
-                  {
-                    "--tilt": `${tilt}deg`,
-                    background: CARD_BG,
-                  } as React.CSSProperties
-                }
-                className="size-[140px] shrink-0 overflow-hidden rounded-2xl border border-white/[0.12] shadow-lg [transform:rotate(var(--tilt))] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:[transform:rotate(0deg)_translateY(-6px)_scale(1.05)] motion-reduce:transition-none sm:size-[170px] lg:size-[200px]"
+                style={{ "--tilt": `${tilt}deg` } as React.CSSProperties}
+                className="size-[140px] shrink-0 overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm [transform:rotate(var(--tilt))] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:[transform:rotate(0deg)_translateY(-6px)_scale(1.05)] motion-reduce:transition-none sm:size-[170px] lg:size-[200px]"
               >
                 <div className="flex h-full w-full items-center justify-center p-[16%]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
