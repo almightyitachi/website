@@ -41,7 +41,6 @@ import { cn } from "@/lib/utils"
 import { CorporateLogoCarousel } from "../_components-v6/CorporateLogoCarousel"
 import { InstituteLogoGrid } from "../_components-v6/InstituteLogoGrid"
 import { DataSecuritySection } from "../_components-v6/DataSecuritySection"
-import { EditorialPullQuote } from "../_components-v6/EditorialPullQuote"
 import { EveryStageOfHire } from "../_components-v6/EveryStageOfHire"
 // Temporarily hidden — see GoLiveTimeline render site below.
 // import { GoLiveTimeline } from "../_components-v6/GoLiveTimeline"
@@ -162,7 +161,6 @@ export function MarketingLanding({
       {/* Temporarily hidden — "From JD to a ranked shortlist, in 48 hours." */}
       {/* {heroVariant === "gradient" && <GoLiveTimeline />} */}
       <CorporateLogoCarousel />
-      {heroVariant === "gradient" && <EditorialPullQuote />}
       <InstituteLogoGrid />
       {heroVariant === "gradient" && <DataSecuritySection />}
       <WalkthroughCta onScheduleClick={onScheduleClick} />

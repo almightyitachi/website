@@ -12,6 +12,14 @@ import { motion } from "framer-motion"
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
+// Corner pins on each card — the same four dots that mark the Intelligence
+// satellite tiles.
+const PINS = ["left-2 top-2", "right-2 top-2", "left-2 bottom-2", "right-2 bottom-2"]
+
+// Marks that are dark on a transparent background, so they disappear on the
+// dark glass card — render these as a white knockout. Indices into LOGOS.
+const WHITEN = new Set([0, 8, 9, 12, 15, 16, 17, 18, 19])
+
 interface Logo {
   name: string
   src: string
@@ -54,14 +62,26 @@ export function CorporateLogoCarousel() {
   return (
     <section
       data-section-bg="dark"
-      className="overflow-hidden border-t border-white/[0.06] bg-[var(--bg-brand)] py-20 lg:py-28"
+      className="relative overflow-hidden border-t border-white/[0.06] bg-[var(--bg-brand)] py-20 lg:py-28"
     >
+      {/* Centred cobalt glow — the voltage from the pull-quote band that used
+          to sit below this carousel, pooled behind the cards. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute left-1/2 top-1/2 h-[460px] w-[820px] max-w-[92vw] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            background:
+              "radial-gradient(ellipse, rgba(73,79,223,0.16) 0%, transparent 65%)",
+          }}
+        />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-12% 0px" }}
         transition={{ duration: 0.55, ease: EASE }}
-        className="mx-auto max-w-2xl px-6 text-center"
+        className="relative z-10 mx-auto max-w-2xl px-6 text-center"
       >
         <h2 className="text-[clamp(28px,3.6vw,44px)] font-semibold leading-[1.1] tracking-[-0.025em] text-white">
           Companies{" "}
@@ -74,7 +94,7 @@ export function CorporateLogoCarousel() {
 
       {/* Carousel — edge-masked, auto-scrolling row of tilted cards. */}
       <div
-        className="relative mt-12 lg:mt-16"
+        className="relative z-10 mt-12 lg:mt-16"
         style={{
           maskImage:
             "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
@@ -89,21 +109,33 @@ export function CorporateLogoCarousel() {
           {row.map((logo, i) => {
             const tilt = TILTS[i % TILTS.length]
             const isClone = i >= LOGOS.length
+            const white = WHITEN.has(i % LOGOS.length)
             return (
               <div
                 key={`${logo.name}-${i}`}
                 aria-hidden={isClone}
                 style={{ "--tilt": `${tilt}deg` } as React.CSSProperties}
-                className="size-[140px] shrink-0 overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm [transform:rotate(var(--tilt))] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:[transform:rotate(0deg)_translateY(-6px)_scale(1.05)] motion-reduce:transition-none sm:size-[170px] lg:size-[200px]"
+                className="relative size-[140px] shrink-0 overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm [transform:rotate(var(--tilt))] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:[transform:rotate(0deg)_translateY(-6px)_scale(1.05)] motion-reduce:transition-none sm:size-[170px] lg:size-[200px]"
               >
                 <div className="flex h-full w-full items-center justify-center p-[16%]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={logo.src}
                     alt={isClone ? "" : logo.name}
-                    className="max-h-full max-w-full object-contain"
+                    className={`max-h-full max-w-full object-contain${
+                      white ? " brightness-0 invert" : ""
+                    }`}
                   />
                 </div>
+
+                {/* Corner pins — matching the Intelligence satellite tiles */}
+                {PINS.map((pos) => (
+                  <span
+                    key={pos}
+                    aria-hidden
+                    className={`absolute size-1 rounded-full bg-white/25 ${pos}`}
+                  />
+                ))}
               </div>
             )
           })}

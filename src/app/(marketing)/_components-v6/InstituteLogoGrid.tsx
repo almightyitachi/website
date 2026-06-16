@@ -41,7 +41,7 @@ export function InstituteLogoGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-12% 0px" }}
           transition={{ duration: 0.55, ease: EASE }}
-          className="max-w-[20ch] text-[clamp(28px,3.6vw,44px)] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--text-primary)]"
+          className="mx-auto max-w-2xl text-center text-[clamp(28px,3.6vw,44px)] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--text-primary)]"
         >
           Universities and NGOs{" "}
           <span className="font-serif font-normal italic tracking-[-0.04em] text-[var(--color-primary-600)]">
@@ -50,10 +50,11 @@ export function InstituteLogoGrid() {
           with PluginLive
         </motion.h2>
 
-        {/* Framed gallery — hairline border + corner crosses, logos straight */}
+        {/* Framed gallery — hairline border + corner crosses. Centre-aligned
+            wrap so every row (including the last) is balanced. */}
         <div className="relative mt-12 border border-[var(--border-default)] px-6 py-8 lg:px-8 lg:py-10">
           <CornerPlus />
-          <div className="grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-9 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-9 sm:gap-x-8">
             {LOGOS.map((logo, i) => (
               <motion.div
                 key={logo.name}
@@ -61,7 +62,7 @@ export function InstituteLogoGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8% 0px" }}
                 transition={{ duration: 0.5, delay: 0.05 * (i % 6), ease: EASE }}
-                className="flex items-center justify-center p-3"
+                className="flex basis-[40%] items-center justify-center p-3 sm:basis-[29%] md:basis-[22%] lg:basis-[16%] xl:basis-[14%]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
