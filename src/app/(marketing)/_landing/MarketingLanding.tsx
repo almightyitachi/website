@@ -38,8 +38,8 @@ import { Button } from "@/components/ui/button"
 import { GridPattern } from "@/components/ui/grid-pattern"
 import { cn } from "@/lib/utils"
 
-import { CandidateVoices } from "../_components/CandidateVoices"
-import { CaseStudiesShowcase } from "../_components-v6/CaseStudiesShowcase"
+import { CorporateLogoCarousel } from "../_components-v6/CorporateLogoCarousel"
+import { InstituteLogoGrid } from "../_components-v6/InstituteLogoGrid"
 import { DataSecuritySection } from "../_components-v6/DataSecuritySection"
 import { EditorialPullQuote } from "../_components-v6/EditorialPullQuote"
 import { EveryStageOfHire } from "../_components-v6/EveryStageOfHire"
@@ -161,9 +161,9 @@ export function MarketingLanding({
       )}
       {/* Temporarily hidden — "From JD to a ranked shortlist, in 48 hours." */}
       {/* {heroVariant === "gradient" && <GoLiveTimeline />} */}
-      <CaseStudiesShowcase />
+      <CorporateLogoCarousel />
       {heroVariant === "gradient" && <EditorialPullQuote />}
-      <CandidateVoices />
+      <InstituteLogoGrid />
       {heroVariant === "gradient" && <DataSecuritySection />}
       <WalkthroughCta onScheduleClick={onScheduleClick} />
     </main>
